@@ -31,7 +31,7 @@ jobs:
           docker build -t python-app-mabl:1.0 .
 
       - name: Log in to Docker Hub
-        run: echo "${{ secrets.DOCKER_HUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_HUB_USERNAME }}" --password-stdin
+        run: echo "ivairjr" | docker login -u "xuninhO1994" --password-stdin
 
       - name: Push Docker Image
         run: |

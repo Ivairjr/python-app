@@ -44,8 +44,11 @@ jobs:
     steps:
       - name: Deploy to Kubernetes
         run: |
-          echo "${{ secrets.KUBE_CONFIG }}" > kubeconfig.yaml
-          export KUBECONFIG=kubeconfig.yaml
+          mkdir -p ~/.minikube/profiles/minikube
+          echo "${{ secrets.MINIKUBE_CLIENT_CERT }}" | base64 --decode > ~/.minikube/profiles/minikube/client.crt
+          echo "${{ secrets.MINIKUBE_CLIENT_KEY }}" | base64 --decode > ~/.minikube/profiles/minikube/client.key
+          echo "${{ secrets.MINIKUBE_CA_CERT }}" | base64 --decode > ~/.minikube/ca.crt
+          export KUBECONFIG=~/.minikube/profiles/minikube/kubeconfig.yaml
           kubectl apply -f k8s/deployment.yaml
           kubectl apply -f k8s/service.yaml
 
